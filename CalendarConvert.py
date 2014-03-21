@@ -1,17 +1,22 @@
-#coding: utf8
-#公历转农历
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*- 
+# Coder: Albert<yangsong@2bapm.com>
+#         http://2bapm.com
+# Author: swordzjj
+#         https://github.com/swordzjj/
+# Created on 2014-03-21 23:19:05
 import datetime
 import unittest
 import pprint
 import time
 
 def GetCurrentDate():
-    """获取当前日期"""
+    """获取当前日期，输出年-月-日格式的当前日期。"""
     CurrentDate = time.strftime("%Y-%m-%d")
     return CurrentDate
     
-#def Gregorian2Lunar((wCurYear,wCurMonth,wCurDay)):
 def Gregorian2Lunar(GregorianDate):
+    """公历转农历"""
     #公历每月前面的天数
     wMonthAdd=(0,31,59,90,120,151,181,212,243,273,304,334)
     #农历数据
@@ -31,7 +36,6 @@ def Gregorian2Lunar(GregorianDate):
 		,26293,2413,92509,1197,2637,55883,3365,3410,44458,2906\
 		,1389,18779,1179,62615,2635,2725,46757,1746,2778,27319)
     #取当前公历年、月、日
-    #GregorianDate = "1987-03-19"
     year,month,day = GregorianDate.split('-')
     wCurYear,wCurMonth,wCurDay=int(year),int(month),int(day)
     wLunarYear,wLunarMonth,wLunarDay=None,None,None
@@ -93,6 +97,7 @@ def Gregorian2Lunar(GregorianDate):
     
 #农历转公历
 def Lunar2Gregorian((nLunYear,nLunMonth,nLunDay,bEmbolism)):
+    """农历转公历"""
     #取当前公历年、月、日
     #year,month,day = LunarDate.split('-')
     #wCurYear,wCurMonth,wCurDay=int(year),int(month),int(day)    
@@ -105,7 +110,7 @@ def Lunar2Gregorian((nLunYear,nLunMonth,nLunDay,bEmbolism)):
         tStart+=tSpan
     return (None,None,None)
 
-
+#输入数字农历日期，输出大写  属相、天干地支、农历日期
 def GetLunarString((nLunYear,nLunMonth,nLunDay,bEmbolism)):
     # 天干名称
     cTianGan=(u"甲",u"乙",u"丙",u"丁",u"戊",u"己",u"庚",u"辛",u"壬",u"癸")
@@ -147,8 +152,14 @@ def GetLunarString((nLunYear,nLunMonth,nLunDay,bEmbolism)):
     if nLunDay<0 or nLunDay>=len(cDayName):
         raise ValueError,'Error Month for LunDay'      
     sNongliDay=cDayName[nLunDay]
+    #把元组转化为字符串
+    #LunarString = "".join((sShuxiang,sTianGan,sDiZhi,sNongliMonth,sNongliDay))
+    #把unicode转化为utf-8
+    #print LunarString.encode('utf-8')
     return (sShuxiang,sTianGan,sDiZhi,sNongliMonth,sNongliDay)
-  
+
+
+    
 def GetLunarFeastIndex(nGreYear,nGreMonth,nGreDay):
     #数组gLanarHoliDay存放每年的二十四节气对应的阳历日期 
     #每年的二十四节气对应的阳历日期几乎固定，平均分布于十二个月中 
@@ -398,9 +409,14 @@ def Get24LunarFeast((nGreYear,nGreMonth,nGreDay)):
                 break  
     return (sFeast,nFeastMonth)
 # 
-def Get8Zi((nGreYear,nGreMonth,nGreDay,nHour,nMinute)):
+def Get8Zi((GregorianDate,nHour,nMinute)):
     (sShuxiang,sTianGan,sDiZhi,sNongliMonth,sNongliDay)=\
-        GetLunarString(Gregorian2Lunar((nGreYear,nGreMonth,nGreDay)))
+        GetLunarString(Gregorian2Lunar(GregorianDate))
+        
+    GreYear,GreMonth,GreDay = GregorianDate.split('-')
+    nGreYear = int(GreYear)
+    nGreMonth = int(GreMonth)
+    nGreDay = int(GreDay)
     nTianGan=((nGreYear-4)%60)%10
     #时辰    
     nShiCheng=nHour/2
