@@ -4,6 +4,12 @@ import datetime
 import unittest
 import pprint
 import time
+
+def GetCurrentDate():
+    """获取当前日期"""
+    CurrentDate = time.strftime("%Y-%m-%d")
+    return CurrentDate
+    
 #def Gregorian2Lunar((wCurYear,wCurMonth,wCurDay)):
 def Gregorian2Lunar(GregorianDate):
     #公历每月前面的天数
