@@ -3,15 +3,18 @@
 # Author: Albert<yangsong@2bapm.com>
 #         http://2bapm.com
 # Created on 2014-03-21 21:13:13
-
+import os
 import time
 
 
 def GetBirth():
     """读取生日信息，返回生日字典"""
-    
-    
+    Birth = {}
+    with open("data/birthday.txt","r") as birthday:
+        Birth = birthday.readline()
+                
     return Birth
+    
     
 def GetAnniversary():
     """读取纪念日信息，返回纪念日字典"""
@@ -29,4 +32,4 @@ def OutPutAnniversary():
     """计算纪念日日期，距离30天以内的输出提醒"""
     
     
-    return """字符串提醒信息"""
+    return """字符串提醒信息""" 

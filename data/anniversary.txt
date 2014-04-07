@@ -1,0 +1,4 @@
+名称，日期，阴历/阳历（1，0），邮箱
+纪念日1,2013-07-27,0,yangsong@2bapm.com
+纪念日2,2005-9-30,0,yangsong@2bapm.com
+纪念日3,2014-03-22,0,yangsong@2bapm.com
