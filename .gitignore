@@ -110,3 +110,5 @@ Session.vim
 *.tmproject
 tmtags
 
+###Pycharm
+/.idea
